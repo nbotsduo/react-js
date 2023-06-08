@@ -1,45 +1,50 @@
-import MeetupDetail from "../../components/meetups/MeetupDetail";
+import MeetupDetail from '../../components/meetups/MeetupDetail';
 
 function MeetupDetails() {
   return (
     <MeetupDetail
-      image="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png"
-      title="A First Meetup"
-      address="Address"
-      description="The meetup description"
+      image='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg'
+      title='First Meetup'
+      address='Some Street 5, Some City'
+      description='This is a first meetup'
     />
   );
 }
 
 export async function getStaticPaths() {
   return {
-    fallback:false,
+    fallback: false,
     paths: [
       {
         params: {
-          meetupId: "m1",
+          meetupId: 'm1',
         },
       },
       {
         params: {
-          meetupId: "m2",
+          meetupId: 'm2',
         },
       },
     ],
   };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
+  // fetch data for a single meetup
+
   const meetupId = context.params.meetupId;
+
+  console.log(meetupId);
+
   return {
     props: {
       meetupData: {
-        id: "m1",
         image:
-          "https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png",
-        title: "A First Meetup",
-        address: "Address",
-        description: "The meetup description",
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
+        id: meetupId,
+        title: 'First Meetup',
+        address: 'Some Street 5, Some City',
+        description: 'This is a first meetup',
       },
     },
   };
