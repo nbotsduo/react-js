@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import { Transition } from "react-transition-group";
 import "./App.css";
 import Modal from "./components/Modal/Modal";
 import Backdrop from "./components/Backdrop/Backdrop";
@@ -23,20 +24,46 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React Animations</h1>
-        
+
         <button
+          className="Button"
           onClick={() =>
-            this.setState((prevState) => ({ showModal: !prevState.showBlock }))
+            this.setState((prevState) => ({ showBlock: !prevState.showBlock }))
           }
         >
           Toggle
         </button>
-        <br/>
-        {this.state.showBlock ? (
-          <div style={{ background: "red", width: 100, height: 100 }} />
-        ) : null}
+        <br />
+        <Transition
+          in={this.state.showBlock}
+          timeout={1000}
+          mountOnEnter
+          unmountOnExit
+          onEnter={()=>console.log("onEnter")}
+          onEntering={()=>console.log("onEntering")}
+          onEntered={()=>console.log("onEntered")}
+          onExit={()=>console.log("onExit")}
+          onExiting={()=>console.log("onExiting")}
+          onExited={()=>console.log("onExited")}
+        >
+          {(state) => (
+            <div
+              style={{
+                background: "red",
+                width: 100,
+                height: 100,
+                margin: "auto",
+                opacity: state === "exiting" ? 0 : 1,
+                transition: "opacity 1s ease-out",
+              }}
+            />
+          )}
+        </Transition>
+
         <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
-        <Backdrop show={this.state.modalIsOpen} />
+
+        {this.state.modalIsOpen ? <Backdrop show /> : null}
+
         <button className="Button" onClick={this.showModal}>
           Open Modal
         </button>
