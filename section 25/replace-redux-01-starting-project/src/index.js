@@ -4,15 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-import configureStore from './hooks-store/products-store';
+import configureProductsStore from './hooks-store/products-store';
 
-configureStore();
+configureProductsStore();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <ProductsProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  // </ProductsProvider>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
